@@ -1,0 +1,87 @@
+// Author: Eric Hodurek
+// Note:   Trying to draw a light green circle with a gray square behind it
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.awt.Container; 
+import java.awt.Color;
+
+class Oval extends JPanel {
+    private Color myColor;
+    public void setColor(int red, int green, int blue) {
+        myColor = new Color(red,green,blue);
+        //setBackground = new Color(red, green, blue);
+    }
+    public Color getColor() {
+        return myColor;
+    }
+    //Constructor to set the color
+    Oval() {
+        setColor(255,0,0);
+    }
+    Oval(int red, int green, int blue) {
+        setColor(red,green,blue); 
+        //setBackground(Color.blue)      
+    }
+    //Not quite sure what it does but I assume it
+    //paints the components
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
+
+        //Rectangle
+        g.setColor(myColor);
+        g.fillRect(0,0,panelWidth,panelHeight);
+        
+        //Oval
+        g.setColor(myColor);
+        g.fillOval(0,0,panelWidth,panelHeight);
+        
+        /*Struggled with setting the rectangle to the back
+        so it covered the circle*/
+        
+    }
+}
+class RectangleFrame extends JFrame {
+    RectangleFrame(){
+        setTitle("RectangleDraw");
+        setBounds(250,150,400,300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Allows the frame to close
+        
+        Oval myRectangle = new Oval(100,200,0);
+        Container contentPane = getContentPane();
+        contentPane.add(myRectangle);
+    }
+}
+class OvalFrame extends JFrame {
+    OvalFrame() {
+        setTitle("Eric's OvalDraw");
+        setBounds(250,150,400,500); //Sets the bounds for the size and location of the window
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Overrides Oval() function and can set the color of the oval
+        Oval myOval = new Oval(100,200,0);
+        Container contentPane = getContentPane();
+        contentPane.add(myOval); 
+
+    }
+}
+
+public class OvalDrawPlus {
+    public static void main(String[] args) {
+        System.out.println("Starting OvalDrawPlus...");
+        OvalFrame myFrame = new OvalFrame();
+        myFrame.setVisible(true);
+    }
+}
+/*
+* I left a portion of the code that wouldn't allow my program to run properly commented. 
+* I had left the fillrect commented out because I beleive it was overriding my filloval
+* and just leaving the entire panel in that one color. I tried experimenting for a while
+* on how to fix it but had no luck. I also struggled with getting the porgram to display 
+* a message when exiting the terminal. I found some stuff online that mentioned utilizing
+* JFrame.DO_NOTHING_ON_CLOSE command but couldn't seem to figure it out.
+*/
